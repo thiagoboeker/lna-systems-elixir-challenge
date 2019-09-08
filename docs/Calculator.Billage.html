@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.21.2">
+    <meta name="project" content="Calculator v0.1.0">
+    <title>Calculator.Billage — Calculator v0.1.0</title>
+    <link rel="stylesheet" href="dist/html-de2388dc2f8074b0a4db.css" />
+    <script src="dist/sidebar_items-834bf923e5.js"></script>
+      <script src="docs_config.js"></script>
+    <script async src="dist/html-de2388dc2f8074b0a4db.js"></script>
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode') === 'true') document.body.className += ' night-mode'; } catch (e) { }</script>
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button">
+      <span class="icon-cross" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Search" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="Calculator.html" class="sidebar-projectName">
+Calculator      </a>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+      <h1>
+        <small class="app-vsn">Calculator v0.1.0</small>
+Calculator.Billage          <a href="https://github.com/thiagoboeker/lna-systems-elixir-challenge/blob/master/lib/billage.ex#L1" title="View Source" class="view-source" rel="help">
+            <span class="icon-code" aria-hidden="true"></span>
+            <span class="sr-only">View Source</span>
+          </a>
+      </h1>
+
+
+        <section id="moduledoc">
+<p>Module to calculate the time and billing for the calls.</p>
+        </section>
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#first/3">first(arg, acc \\ 0, minute \\ 0)</a>
+  </div>
+    <div class="summary-synopsis"><p>Applies the business rules to calls in the initial portion of time.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#prepare/1">prepare(batch)</a>
+  </div>
+    <div class="summary-synopsis"><p>Batches the stream into an enumerable to be further used.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#remainer/3">remainer(arg, factor, value)</a>
+  </div>
+    <div class="summary-synopsis"><p>Applies the business rules in the remainer time of the calls.</p></div>
+</div>
+  </div>
+        </section>
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Functions          </h1>
+          <div class="functions-list">
+<section class="detail" id="first/3">
+    <span id="first/1"></span>
+    <span id="first/2"></span>
+  <div class="detail-header">
+    <a href="#first/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">first(arg, acc \\ 0, minute \\ 0)</h1>
+      <a href="https://github.com/thiagoboeker/lna-systems-elixir-challenge/blob/master/lib/billage.ex#L72" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+  </div>
+  <section class="docstring">
+<p>Applies the business rules to calls in the initial portion of time.</p>
+<p>Based on the business rules, which implies that for an arbitrary initial period the billing is 
+different, this function contains the rules for the initial period of each call. It is recursive on durations
+lower than the duration of the rule. And leaves after the minutes == factor
+is reached, leaving for the rules applied in <a href="Calculator.Billage.html#remainer/3"><code class="inline">Calculator.Billage.remainer/3</code></a>.</p>
+<p>For example, for a 5 minute rule with 300 seconds duration.</p>
+<h2 id="first/3-examples" class="section-heading">
+  <a href="#first/3-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">Calculator.Billage</span><span class="o">.</span><span class="n">first</span><span class="p" data-group-id="6979130618-1">(</span><span class="p" data-group-id="6979130618-2">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="6979130618-2">}</span><span class="p" data-group-id="6979130618-1">)</span><span class="w">
+</span><span class="p" data-group-id="6979130618-3">{</span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="6979130618-3">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Calculator.Billage</span><span class="o">.</span><span class="n">first</span><span class="p" data-group-id="6979130618-4">(</span><span class="p" data-group-id="6979130618-5">{</span><span class="mi">330</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="6979130618-5">}</span><span class="p" data-group-id="6979130618-4">)</span><span class="w">
+</span><span class="p" data-group-id="6979130618-6">{</span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p" data-group-id="6979130618-6">}</span><span class="w"> </span><span class="c1"># 30 seconds remaining</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="prepare/1">
+  <div class="detail-header">
+    <a href="#prepare/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">prepare(batch)</h1>
+      <a href="https://github.com/thiagoboeker/lna-systems-elixir-challenge/blob/master/lib/billage.ex#L136" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+  </div>
+  <section class="docstring">
+<p>Batches the stream into an enumerable to be further used.</p>
+  </section>
+</section>
+<section class="detail" id="remainer/3">
+  <div class="detail-header">
+    <a href="#remainer/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">remainer(arg, factor, value)</h1>
+      <a href="https://github.com/thiagoboeker/lna-systems-elixir-challenge/blob/master/lib/billage.ex#L100" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+  </div>
+  <section class="docstring">
+<p>Applies the business rules in the remainer time of the calls.</p>
+<p>For the ending period of the call, this function applies its rules and return the total value, it must be 
+called after <a href="Calculator.Billage.html#first/3"><code class="inline">Calculator.Billage.first/3</code></a>.</p>
+<h2 id="remainer/3-examples" class="section-heading">
+  <a href="#remainer/3-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="c1"># 1. Receives 5 minutes and a accumulated 25 cents with a factor of 1 which means it applies 2 cents per minute</span><span class="w">
+</span><span class="c1"># 2. Receives an extra 30 seconds</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Calculator.Billage</span><span class="o">.</span><span class="n">remainer</span><span class="p" data-group-id="0305972216-1">(</span><span class="p" data-group-id="0305972216-2">{</span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p" data-group-id="0305972216-2">}</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="0305972216-1">)</span><span class="w"> </span><span class="c1"># 1.</span><span class="w">
+</span><span class="mf">35.0</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Calculator.Billage</span><span class="o">.</span><span class="n">remainer</span><span class="p" data-group-id="0305972216-3">(</span><span class="p" data-group-id="0305972216-4">{</span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">330</span><span class="p" data-group-id="0305972216-4">}</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="0305972216-3">)</span><span class="w"> </span><span class="c1"># 2.</span><span class="w">
+</span><span class="mf">36.0</span></code></pre>
+  </section>
+</section>
+          </div>
+        </section>
+      <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.21.2),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  </body>
+</html>
