@@ -21,13 +21,24 @@ defmodule Calculator.Cli do
     IO.puts("""    
     # Instructions
     
-    Inside the project directory run \"lna_systems path_to_file\" to run the application
-    
     Run \"mix escript.build\" to build the executable
     
+    Inside the project directory run \"lna_systems path_to_file\" to run the application
+            
+    The sample listed in the application command is included so
+
+    ./lna_systeam sample.txt
+
+    To check if it works.
+
     # Usage
     
     ./lna_systems path/to/file
+
+    # Docs 
+    
+    https://thiagoboeker.github.io/lna-systems-elixir-challenge/
+    
     """
     )
   end
