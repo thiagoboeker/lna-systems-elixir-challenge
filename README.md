@@ -12,7 +12,13 @@ Build the executable
 $ MIX_ENV=prod mix escript.build
 ```
 
-The you can run as
+Run the tests
+
+```bash
+$ MIX_ENV=prod mix test
+```
+
+Then you can run as
 
 ```bash
 $ lna_systems path/to/file
